@@ -1,0 +1,39 @@
+{
+  "name": "@asrour/myfhir",
+  "version": "0.1.0",
+  "description": "Generates FHIR mysql database from file definitions",
+  "main": "lib/index.js",
+  "bin": {
+    "pizza": "./lib/index.js"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "create": "yarn build && yarn test",
+    "build": "tsc -p .",
+    "local": "npm i -g && pizza",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "cli": "yarn build && node ./lib/index.js"
+  },
+  "keywords": [
+    "FHIR",
+    "nodejs",
+    "mysql"
+  ],
+  "author": "Abdul-rahman M. Srour <3bd.srour@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0",
+    "commander": "^8.1.0",
+    "figlet": "^1.5.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/figlet": "^1.5.4",
+    "@types/node": "^16.4.13",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  }
+}
