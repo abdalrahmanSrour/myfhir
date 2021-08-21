@@ -1,16 +1,16 @@
 {
-  "name": "@asrour/myfhir",
+  "name": "@asrour/myFHIR",
   "version": "0.1.0",
   "description": "Generates FHIR mysql database from file definitions",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "bin": {
-    "pizza": "./lib/index.js"
+    "myFHIR": "./dist/index.js"
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "create": "yarn build && yarn test",
     "build": "tsc -p .",
-    "local": "npm i -g && pizza",
+    "local": "npm i -g && myFHIR",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
     "cli": "yarn build && node ./lib/index.js",
     "lint": "eslint ./src/**/*.ts",
