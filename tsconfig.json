@@ -7,7 +7,7 @@
             "dom"
         ],
         "declaration": true,
-        "outDir": "myfhir",
+        "outDir": "dist",
         "rootDir": "src",
         "strict": true,
         "types": [
