@@ -11,9 +11,17 @@
         "rootDir": "src",
         "strict": true,
         "types": [
+            "mocha",
             "node"
         ],
         "esModuleInterop": true,
         "resolveJsonModule": true
-    }
+    },
+    "exclude": [
+        "./src/**/*.test.ts",
+        "./node_modules"
+    ],
+    "include": [
+        "./src/**/*.ts"
+    ]
 }

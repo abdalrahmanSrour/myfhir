@@ -16,7 +16,7 @@ program
     // .option('-p, --peppers', 'Add peppers')
     // .option('-P, --pineapple', 'Add pineapple')
     // .option('-b, --bbq', 'Add bbq sauce')
-    .option('-f, --folder <path>', 'Definition folder path')
+    .option('-f, --folder <folder-path>', 'Definition folder path', './fhir')
     // .option('-C, --no-cheese', 'You do not want any cheese')
     .parse(process.argv);
 
