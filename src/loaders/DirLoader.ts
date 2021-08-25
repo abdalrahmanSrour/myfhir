@@ -7,21 +7,21 @@ export default class DirLoader {
     /**
      * Directory path
      *
-     * @type fs.PathLike
+     * @var fs.PathLike
      */
     private _dirPath: fs.PathLike;
 
     /**
      * Holds loaded dirents
      *
-     * @type fs.Dirent[]
+     * @var fs.Dirent[]
      */
     private _dirents: fs.Dirent[];
 
     /**
      * Return directory path
      *
-     * @returns fs.PathLike
+     * @var fs.PathLike
      */
     public get dirPath(): fs.PathLike {
         return this._dirPath;
@@ -30,7 +30,7 @@ export default class DirLoader {
     /**
      * Returns loaded dirents
      *
-     * @returns fs.Dirent[]
+     * @var fs.Dirent[]
      */
     public get dirents(): fs.Dirent[] {
         return this._dirents;
