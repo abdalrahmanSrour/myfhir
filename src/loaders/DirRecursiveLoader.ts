@@ -4,7 +4,7 @@ import DirLoader from './DirLoader';
  * Loads a directory and allow looping for files in the directory
  * recursively.
  */
-export class DirRecursiveLoader extends DirLoader {
+export default class DirRecursiveLoader extends DirLoader {
     /**
      * Loops over loaded dirents recursively searching for files.
      * Must call @method load before calling this method.

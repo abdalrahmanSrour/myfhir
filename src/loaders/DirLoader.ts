@@ -32,7 +32,7 @@ export default class DirLoader {
      *
      * @returns fs.Dirent[]
      */
-    private get dirents(): fs.Dirent[] {
+    public get dirents(): fs.Dirent[] {
         return this._dirents;
     }
 
