@@ -10,9 +10,12 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
     private _command: Command;
     private _commandArgs: T;
     private _rules: CommandArgRule[];
+    private _defaultArgs: T;
 
     /**
      * Command intance
+     *
+     * @var Command
      */
     public get command(): Command {
         return this._command;
@@ -20,6 +23,8 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
 
     /**
      * Parsed command arguments of type T
+     *
+     * @var T
      */
     public get commandArgs(): T {
         return this._commandArgs;
@@ -27,23 +32,52 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
 
     /**
      * Command rules list
+     *
+     * @var CommandArgRule[]
      */
     public get rules(): CommandArgRule[] {
         return this._rules;
     }
 
-    constructor(appVersion: string, appDescription: string, defaultArgs: T, rules: CommandArgRule[]) {
-        this._commandArgs = defaultArgs;
+    /**
+     * Default arguments
+     *
+     * @var T
+     */
+    public get defaultArgs(): T {
+        return this._defaultArgs;
+    }
+
+    constructor(
+        rules: CommandArgRule[],
+        defaultArgs?: T,
+        appName?: string,
+        appVersion?: string,
+        appDescription?: string,
+    ) {
+        this._commandArgs = this._defaultArgs = defaultArgs ?? ({} as T);
         this._rules = rules;
 
         this._command = new Command();
-        this.command.version(appVersion).description(appDescription);
+        if (appVersion) {
+            this.command.version(appVersion);
+        }
+
+        if (appDescription) {
+            this.command.description(appDescription);
+        }
+
+        if (appName) {
+            this.command.name(appName);
+        }
 
         this.addRules();
     }
 
     /**
      * Add rules to command from @property rules
+     *
+     * @returns void
      */
     private addRules(): void {
         for (const rule of this.rules) {
@@ -72,6 +106,7 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
         this.command.parse(argv);
         const opts = this.command.opts<T>();
         this._commandArgs = {
+            ...this.defaultArgs,
             ...opts,
         };
 
