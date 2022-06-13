@@ -1,15 +1,14 @@
-import { expect } from 'chai';
 import CommandArgsParser from '../CommandArgsParser';
 import CommandArgRule from '../CommandArgRule';
 
 describe('CommandArgsParser Tests', () => {
     it('Parse empty rules', () => {
         const parser = new CommandArgsParser([], {}, 'test', '0.1.0', 'Test App');
-        expect(parser.parse([])).to.be.empty;
-        expect(parser.command.helpInformation()).to.equal(
+        expect(parser.parse([])).toMatchObject({});
+        expect(parser.command.helpInformation()).toEqual(
             'Usage: test [options]\n\nTest App\n\nOptions:\n  -V, --version  output the version number\n  -h, --help     display help for command\n',
         );
-        expect(parser.command.name()).to.equal('test');
+        expect(parser.command.name()).toEqual('test');
     });
 
     it('Parse one optional rule', () => {
@@ -19,14 +18,14 @@ describe('CommandArgsParser Tests', () => {
             },
         ];
         const parser = new CommandArgsParser<{ file?: boolean }>(rules, {}, 'test', '0.1.0', 'Test App');
-        expect(parser.command.name()).to.equal('test');
-        expect(parser.command.helpInformation()).to.equal(
+        expect(parser.command.name()).toEqual('test');
+        expect(parser.command.helpInformation()).toEqual(
             'Usage: test [options]\n\nTest App\n\nOptions:\n  -V, --version  output the version number\n  --file\n  -h, --help     display help for command\n',
         );
         let parsed = parser.parse(['1', '2']);
-        expect(parsed.file).to.be.undefined;
+        expect(parsed.file).toBeUndefined();
         parsed = parser.parse(['1', '2', '--file']);
-        expect(parsed.file).to.be.true;
+        expect(parsed.file).toEqual(true);
     });
 
     it('Parse short flag', () => {
@@ -40,16 +39,16 @@ describe('CommandArgsParser Tests', () => {
             },
         ];
         const parser = new CommandArgsParser<{ file?: string }>(rules, {}, 'test', '0.1.0', 'Test App');
-        expect(parser.command.name()).to.equal('test');
-        expect(parser.command.helpInformation()).to.equal(
+        expect(parser.command.name()).toEqual('test');
+        expect(parser.command.helpInformation()).toEqual(
             'Usage: test [options]\n\nTest App\n\nOptions:\n  -V, --version           output the version number\n  -f, --file <file-name>  The file path (default: "./file")\n  -h, --help              display help for command\n',
         );
         let parsed = parser.parse(['1', '2']);
-        expect(parsed.file).to.equal('./file');
+        expect(parsed.file).toEqual('./file');
         parsed = parser.parse(['1', '2', '--file', 'test']);
-        expect(parsed.file).to.equal('test');
+        expect(parsed.file).toEqual('test');
         parsed = parser.parse(['1', '2', '-f', 'short']);
-        expect(parsed.file).to.equal('short');
+        expect(parsed.file).toEqual('short');
     });
 
     it('Parse multiple rules', () => {
@@ -74,25 +73,25 @@ describe('CommandArgsParser Tests', () => {
             '0.1.0',
             'Test App',
         );
-        expect(parser.command.name()).to.equal('test');
-        expect(parser.command.helpInformation()).to.equal(
+        expect(parser.command.name()).toEqual('test');
+        expect(parser.command.helpInformation()).toEqual(
             'Usage: test [options]\n\nTest App\n\nOptions:\n  -V, --version           output the version number\n  -f, --file <file-name>  The file path (default: "./file")\n  -e, --enable            Enable something\n  -h, --help              display help for command\n',
         );
         let parsed = parser.parse(['1', '2']);
-        expect(parsed.file).to.equal('./file');
-        expect(parsed.enable).to.be.undefined;
+        expect(parsed.file).toEqual('./file');
+        expect(parsed.enable).toBeUndefined();
         parsed = parser.parse(['1', '2', '--file', 'test']);
-        expect(parsed.file).to.equal('test');
-        expect(parsed.enable).to.be.undefined;
+        expect(parsed.file).toEqual('test');
+        expect(parsed.enable).toBeUndefined();
         parsed = parser.parse(['1', '2', '-f', 'short']);
-        expect(parsed.file).to.equal('short');
-        expect(parsed.enable).to.be.undefined;
+        expect(parsed.file).toEqual('short');
+        expect(parsed.enable).toBeUndefined();
         parsed = parser.parse(['1', '2', '-f', 'short', '--enable']);
-        expect(parsed.file).to.equal('short');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('short');
+        expect(parsed.enable).toEqual(true);
         parsed = parser.parse(['1', '2', '-e', '--file', 'long']);
-        expect(parsed.file).to.equal('long');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('long');
+        expect(parsed.enable).toEqual(true);
     });
 
     it('Parse default values', () => {
@@ -116,27 +115,27 @@ describe('CommandArgsParser Tests', () => {
             '0.1.0',
             'Test App',
         );
-        expect(parser.command.name()).to.equal('test');
-        expect(parser.command.helpInformation()).to.equal(
+        expect(parser.command.name()).toEqual('test');
+        expect(parser.command.helpInformation()).toEqual(
             'Usage: test [options]\n\nTest App\n\nOptions:\n  -V, --version           output the version number\n  -f, --file <file-name>  The file path\n  -e, --enable            Enable something\n  -h, --help              display help for command\n',
         );
         let parsed = parser.parse(['1', '2']);
-        expect(parsed.file).to.equal('./file');
-        expect(parsed.enable).to.be.false;
+        expect(parsed.file).toEqual('./file');
+        expect(parsed.enable).toEqual(false);
         parsed = parser.parse(['1', '2', '-e']);
-        expect(parsed.file).to.equal('./file');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('./file');
+        expect(parsed.enable).toEqual(true);
         parsed = parser.parse(['1', '2', '--file', 'test']);
-        expect(parsed.file).to.equal('test');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('test');
+        expect(parsed.enable).toEqual(true);
         parsed = parser.parse(['1', '2', '-f', 'short']);
-        expect(parsed.file).to.equal('short');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('short');
+        expect(parsed.enable).toEqual(true);
         parsed = parser.parse(['1', '2', '-f', 'short', '--enable']);
-        expect(parsed.file).to.equal('short');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('short');
+        expect(parsed.enable).toEqual(true);
         parsed = parser.parse(['1', '2', '-e', '--file', 'long']);
-        expect(parsed.file).to.equal('long');
-        expect(parsed.enable).to.be.true;
+        expect(parsed.file).toEqual('long');
+        expect(parsed.enable).toEqual(true);
     });
 });
