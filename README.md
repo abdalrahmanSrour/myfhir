@@ -1,15 +1,14 @@
 ```
-                      _____   _   _   ___   ____                   _   _ 
-  _ __ ___    _   _  |  ___| | | | | |_ _| |  _ \            ___  | | (_)
- | '_ ` _ \  | | | | | |_    | |_| |  | |  | |_) |  _____   / __| | | | |
- | | | | | | | |_| | |  _|   |  _  |  | |  |  _ <  |_____| | (__  | | | |
- |_| |_| |_|  \__, | |_|     |_| |_| |___| |_| \_\          \___| |_| |_| by asrour
-              |___/                                                      
+  __  __           _____   _   _   ___   ____                   _   _ 
+ |  \/  |  _   _  |  ___| | | | | |_ _| |  _ \            ___  | | (_)
+ | |\/| | | | | | | |_    | |_| |  | |  | |_) |  _____   / __| | | | |
+ | |  | | | |_| | |  _|   |  _  |  | |  |  _ <  |_____| | (__  | | | |
+ |_|  |_|  \__, | |_|     |_| |_| |___| |_| \_\          \___| |_| |_| by Abed Srour
+           |___/
 ```
 
 # myFHIR-cli
-Command line tool to generate mySQL schema from FHIR resources definitions
-
+Command line tool to generate MySQL schema from FHIR resources definitions
 
 # License
 MIT License

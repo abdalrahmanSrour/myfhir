@@ -6,13 +6,13 @@ import { Command } from 'commander';
 import figlet from 'figlet';
 
 clear();
-console.log(chalk.red(figlet.textSync('myFHIR-cli', { horizontalLayout: 'full' })));
+console.log(chalk.red(figlet.textSync('MyFHIR-cli', { horizontalLayout: 'full' })));
 
 const program = new Command();
 
 program
     .version('0.1.0')
-    .description('Generate mySQL schema from FHIR resources definitions')
+    .description('Generate MySQL schema from FHIR resources definitions')
     // .option('-p, --peppers', 'Add peppers')
     // .option('-P, --pineapple', 'Add pineapple')
     // .option('-b, --bbq', 'Add bbq sauce')
