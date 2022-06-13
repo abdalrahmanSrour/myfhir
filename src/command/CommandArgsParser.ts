@@ -7,10 +7,6 @@ import CommandArgRule from './CommandArgRule';
  * Use @method parse to parse commnad line argv
  */
 export default class CommandArgsParser<T extends { [key: string]: string | boolean }> {
-    private _command: Command;
-    private _commandArgs: T;
-    private _rules: CommandArgRule[];
-    private _defaultArgs: T;
 
     /**
      * Command intance
@@ -48,6 +44,26 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
         return this._defaultArgs;
     }
 
+    /**
+     * The main command
+     */
+    private _command: Command;
+
+    /**
+     * Command arguments
+     */
+    private _commandArgs: T;
+
+    /**
+     * List of command argument rules
+     */
+    private _rules: CommandArgRule[];
+
+    /**
+     * Default arguments
+     */
+    private _defaultArgs: T;
+
     constructor(
         rules: CommandArgRule[],
         defaultArgs?: T,
@@ -75,6 +91,23 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
     }
 
     /**
+     * Parse given argv and return the parsed options as @type T
+     *
+     * @param argv string[]
+     * @returns T
+     */
+    public parse(argv: string[]): T {
+        this.command.parse(argv);
+        const opts = this.command.opts<T>();
+        this._commandArgs = {
+            ...this.defaultArgs,
+            ...opts,
+        };
+
+        return this._commandArgs;
+    }
+
+    /**
      * Add rules to command from @property rules
      *
      * @returns void
@@ -94,22 +127,5 @@ export default class CommandArgsParser<T extends { [key: string]: string | boole
 
             this.command.option(flags, rule.description, rule.defaultValue);
         }
-    }
-
-    /**
-     * Parse given argv and return the parsed options as @type T
-     *
-     * @param argv string[]
-     * @returns T
-     */
-    public parse(argv: string[]): T {
-        this.command.parse(argv);
-        const opts = this.command.opts<T>();
-        this._commandArgs = {
-            ...this.defaultArgs,
-            ...opts,
-        };
-
-        return this._commandArgs;
     }
 }
