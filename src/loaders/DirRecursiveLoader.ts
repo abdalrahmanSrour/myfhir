@@ -24,10 +24,9 @@ export default class DirRecursiveLoader extends DirLoader {
                 });
             } else if (dirent.isFile()) {
                 return callback(`${this.dirPath}/${dirent.name}`);
-            } else {
-                // skip
-                return true;
             }
+
+            return true;
         });
 
         return this;
