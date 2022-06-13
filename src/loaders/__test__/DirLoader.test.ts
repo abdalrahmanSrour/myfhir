@@ -49,4 +49,14 @@ describe('DirLoader Tests', () => {
             return false;
         });
     });
+
+    it('Test ASCII encoding', () => {
+        const dirLoader = new DirLoader(`${__dirname}/OneFile`, 'ascii');
+        dirLoader.load();
+        expect(dirLoader.dirents.length).toEqual(1);
+        dirLoader.forEach((dirent) => {
+            expect(dirent.isFile()).toEqual(true);
+            expect(dirent.name).toEqual('.gitkeep');
+        });
+    });
 });
