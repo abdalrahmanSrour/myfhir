@@ -19,6 +19,13 @@ export default class DirLoader {
     private _dirents: fs.Dirent[];
 
     /**
+     * Encoding type to read files
+     *
+     * @var BufferEncoding
+     */
+    private _encoding: BufferEncoding;
+
+    /**
      * Return directory path
      *
      * @var fs.PathLike
@@ -37,13 +44,23 @@ export default class DirLoader {
     }
 
     /**
+     * Returns encoding type
+     *
+     * @var BufferEncoding
+     */
+    public get encoding(): BufferEncoding {
+        return this._encoding;
+    }
+
+    /**
      * Loads a directory and allow looping throw its items
      *
      * @param folderPath fs.PathLike
      */
-    constructor(folderPath: fs.PathLike) {
+    constructor(folderPath: fs.PathLike, encoding: BufferEncoding = 'utf8') {
         this._dirPath = folderPath;
         this._dirents = [];
+        this._encoding = encoding;
     }
 
     /**
@@ -53,7 +70,7 @@ export default class DirLoader {
      */
     public load(): this {
         this._dirents = fs.readdirSync(this.dirPath, {
-            encoding: 'utf8',
+            encoding: this.encoding,
             withFileTypes: true,
         });
 
